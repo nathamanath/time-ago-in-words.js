@@ -8,8 +8,7 @@
       fn: function(ms){ return UNITS[0].fn(ms) / 60; } },
     { name: 'hour', time: 600000,
       fn: function(ms){ return UNITS[1].fn(ms) / 60; } },
-    { name: 'day', time: 600000,
-      fn: function(ms){ return UNITS[2].fn(ms) / 24; } },
+    { name: 'day', fn: function(ms){ return UNITS[2].fn(ms) / 24; } },
     { name: 'week', fn: function(ms){ return UNITS[3].fn(ms) / 7; } },
     { name: 'month', fn: function(ms){ return UNITS[4].fn(ms) / 30; } },
     { name: 'year', fn: function(ms){ return UNITS[5].fn(ms) / 12; } }
@@ -120,7 +119,5 @@
   };
 
   window.TimeAgo = TimeAgo;
-
-  TimeAgo.init('time');
 })();
 
