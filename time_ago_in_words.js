@@ -63,7 +63,7 @@
       var time = this.unit.time,
           that = this;
 
-      if(time !== 'undefined'){
+      if(time){
         this._timeout = setTimeout(function(){
           that.update();
         }, time);
@@ -86,7 +86,7 @@
         if(measureFloor !== this.measure){ prefix = 'about '; }
 
         if(this.measure < 2){
-          measureString = (this.unit === 'hour') ? 'an' : 'a';
+          measureString = (this.unit.name === 'hour') ? 'an' : 'a';
         }else{
           measureString = measureFloor;
         }
