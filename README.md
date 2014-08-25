@@ -1,19 +1,28 @@
 # Time ago in words js
 
-Vanilla javascript time ago in words.
+Javascript time ago in words.
+
+* Converts js date or timestamp to time ago in words string.
+* Updates smaller units of time (seconds, mins, hours) live.
+* Does not depend on any external libaries.
 
 ## Usage
 On elements you want to apply time ago in words to, set data-time attribute.
+This should be a javascript time stamp (`new Date().getTime()`), or a date (`new Date()`).
 
 ```html
   <time data-time="1408834800000"></time>
 ```
 
-Call TimeAgo.init, it takes 1 argument, which is an array of elements.
+Call TimeAgo.init after your document has loaded, it takes only 1 argument, which is an array of dom elements.
 
-```jsvascript
+```javascript
   var times = document.querySelectorAll('time');
 
   TimeAgo.init(times);
 ```
+
+## Todo:
+* ie testing... should work on ie >= 8,
+* test suite (oops...).
 
