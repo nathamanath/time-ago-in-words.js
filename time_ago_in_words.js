@@ -14,7 +14,7 @@
     { name: 'year', fn: function(ms){ return UNITS[5].fn(ms) / 12; } }
   ];
 
-  var now = new Date();
+  var now = function(){ return new Date() };
 
   var TimeAgo = function(el){
     this.el = el;
@@ -27,7 +27,7 @@
 
   TimeAgo.prototype = {
     _getDifference: function(){
-      return now - this.date;
+      return now() - this.date;
     },
 
     _getTime: function(){
@@ -35,7 +35,10 @@
     },
 
     _parseTime: function(){
-      return new Date(this._getTime() * 1);
+      var time = this._getTime(),
+          t;
+
+      return new Date((!!(t = time * 1)) ? t : time);
     },
 
     _calculateMeasure: function(){
@@ -71,8 +74,6 @@
     },
 
     update: function(){
-      now = new Date();
-
       this.difference = this._getDifference();
 
       this._calculateMeasure();
@@ -90,6 +91,8 @@
         }else{
           measureString = measureFloor;
         }
+
+        console.dir(this.unit);
 
         unitString = this.unit.name;
 
