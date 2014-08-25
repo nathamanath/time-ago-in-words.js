@@ -14,7 +14,7 @@
     { name: 'year', fn: function(ms){ return UNITS[5].fn(ms) / 12; } }
   ];
 
-  var now = function(){ return new Date() };
+  var now = function(){ return new Date(); };
 
   var TimeAgo = function(el){
     this.el = el;
@@ -91,8 +91,6 @@
         }else{
           measureString = measureFloor;
         }
-
-        console.dir(this.unit);
 
         unitString = this.unit.name;
 
