@@ -2,9 +2,9 @@
   'use strict';
 
   var UNITS = [
-    { name: 'second', time: 1000,
+    { name: 'second', time: 30000,
       fn: function(ms){ return Math.abs(ms) / 1000; } },
-    { name: 'minute', time: 30000,
+    { name: 'minute', time: 45000,
       fn: function(ms){ return UNITS[0].fn(ms) / 60; } },
     { name: 'hour', time: 600000,
       fn: function(ms){ return UNITS[1].fn(ms) / 60; } },
@@ -77,7 +77,7 @@
 
       this._calculateMeasure();
 
-      if(this.unit !== UNITS[0].name){
+      if(this.unit !== UNITS[0]){
         var prefix,
             measureString,
             unitString,
@@ -105,9 +105,8 @@
     }
   };
 
-  TimeAgo.init = function(selector){
-    var els = document.querySelectorAll(selector),
-        times = [];
+  TimeAgo.init = function(els){
+    var times = [];
 
     for(var i = 0; i < els.length; i++){
       var el = els[i];

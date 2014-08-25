@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <title>Time ago in words js demo</title>
+  </head>
+
+  <body>
+    <h1>Time ago in words js demo</h1>
+
+    <p>I made this page <time data-time="1408961122910"></time></p>
+    <p>You loaded this page <time id="time-loaded"></time> <-- watch for live updates!!</p>
+
+    <script src="./time_ago_in_words.js"></script>
+
+    <script>
+      var el = document.getElementById('time-loaded'),
+          timeEls = document.querySelectorAll('time');
+
+      el.setAttribute('data-time', new Date().getTime());
+
+      TimeAgo.init(timeEls);
+    </script>
+  </body>
+</html>
+
