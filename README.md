@@ -23,5 +23,9 @@ Call TimeAgo.init after your document has loaded, it takes only 1 argument, whic
   TimeAgo.init(times);
 ```
 
-This will set the innerHTML of each target el to a time ago in words string.
+This will set the innerHTML of each target element to a time ago in words string e.g.
+
+```
+  about 5 minutes ago
+```
 
