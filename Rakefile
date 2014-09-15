@@ -1,7 +1,7 @@
 require 'uglifier'
 require "jshintrb/jshinttask"
 
-SOURCE = 'time_ago_in_words.js'
+SOURCE = 'time_ago.js'
 
 task default: :build
 
@@ -13,11 +13,15 @@ task :minify do
   js = File.read(SOURCE)
   ugly = Uglifier.compile(js)
 
-  File.open("time_ago_in_words.min.js", 'w') do |file|
+  File.open("time_ago.min.js", 'w') do |file|
     file.puts ugly
   end
 
   puts 'Done.'
+end
+
+task :test do
+  `bundle exec rake jasmine:ci`
 end
 
 Jshintrb::JshintTask.new :jshint do |t|
@@ -49,3 +53,5 @@ Jshintrb::JshintTask.new :jshint do |t|
   }
 end
 
+require 'jasmine'
+load 'jasmine/tasks/jasmine.rake'

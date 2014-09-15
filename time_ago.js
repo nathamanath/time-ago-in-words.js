@@ -42,6 +42,8 @@
     },
 
     _calculateMeasure: function(){
+      // OPTIMIZE: Long method
+
       var lastMeasure,
           lastUnit = UNITS[0];
 
@@ -74,12 +76,14 @@
     },
 
     update: function(){
+      // OPTIMIZE: Long method yo
+
       this.difference = this._getDifference();
 
       this._calculateMeasure();
 
       if(this.unit !== UNITS[0]){
-        var prefix,
+        var prefix = '',
             measureString,
             unitString,
             measureFloor = Math.floor(this.measure);
@@ -109,13 +113,25 @@
   TimeAgo.init = function(els){
     var times = [];
 
+    if(!els instanceof Array){
+      throw(new Error('TimeAgo.init requires els'))
+    }
+
     for(var i = 0; i < els.length; i++){
       var el = els[i];
 
-      times.push(new TimeAgo(el));
+      times.push(TimeAgo.new(el));
     }
 
     return times;
+  };
+
+  TimeAgo.new = function(el){
+    if(typeof el === 'undefined'){
+      throw(new Error('TimeAgo.new requires el'))
+    }
+
+    return new TimeAgo(el);
   };
 
   window.TimeAgo = TimeAgo;
