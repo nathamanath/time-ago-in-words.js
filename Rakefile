@@ -56,11 +56,11 @@ Jshintrb::JshintTask.new :jshint do |t|
 end
 
 task :watch do
-  puts "|  Watching #{SOURCE_DIR} for changes."
+  puts "|  Watching #{SOURCE} for changes."
   puts '|  Hit `ctrl + c` to stop'
   sh 'rake build'
 
-  listener = Listen.to SOURCE_DIR do
+  listener = Listen.to SOURCE do
     puts '|  Something changed...'
     sh 'rake build'
   end
