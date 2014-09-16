@@ -75,37 +75,50 @@
       }
     },
 
-    update: function(){
-      // OPTIMIZE: Long method yo
+    _measureString: function(){
+      var out;
 
-      this.difference = this._getDifference();
-
-      this._calculateMeasure();
-
-      if(this.unit !== UNITS[0]){
-        var prefix = '',
-            measureString,
-            unitString,
-            measureFloor = Math.floor(this.measure);
-
-        if(measureFloor !== this.measure){ prefix = 'about '; }
-
-        if(this.measure < 2){
-          measureString = (this.unit.name === 'hour') ? 'an' : 'a';
-        }else{
-          measureString = measureFloor;
-        }
-
-        unitString = this.unit.name;
-
-        if(this.measure >= 2){ unitString += 's'; }
-
-        this.output = prefix + measureString + ' ' + unitString + ' ago';
+      if(this.measure < 2){
+        out = (this.unit.name === 'hour') ? 'an' : 'a';
       }else{
-        this.output = 'less than a minute ago';
+        out = this.measureFloor;
       }
 
-      this.el.innerHTML = this.output;
+      return out;
+    },
+
+    _longOutput: function(){
+      var prefix = '',
+          unitString,
+          measureFloor = Math.floor(this.measure);
+
+      if(measureFloor !== this.measure){ prefix = 'about '; }
+
+      unitString = this.unit.name;
+
+      if(this.measure >= 2){ unitString += 's'; }
+
+      return prefix + this._measureString() +
+        ' ' + unitString + ' ago';
+    },
+
+    _shortOutput: function(){
+      return 'less than a minute ago';
+    },
+
+    _isSeconds: function(){
+      return (this.unit !== UNITS[0]);
+    },
+
+    _outputString: function(){
+      return (this._isSeconds()) ? this._longOutput() : this._shortOutput();
+    },
+
+    update: function(){
+      this.difference = this._getDifference();
+      this._calculateMeasure();
+
+      this.el.innerHTML = this._outputString();
       this._setTimeout();
     }
   };
@@ -114,7 +127,7 @@
     var times = [];
 
     if(!els instanceof Array){
-      throw(new Error('TimeAgo.init requires els'))
+      throw(new Error('TimeAgo.init requires els'));
     }
 
     for(var i = 0; i < els.length; i++){
@@ -128,7 +141,7 @@
 
   TimeAgo.new = function(el){
     if(typeof el === 'undefined'){
-      throw(new Error('TimeAgo.new requires el'))
+      throw(new Error('TimeAgo.new requires el'));
     }
 
     return new TimeAgo(el);

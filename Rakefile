@@ -1,11 +1,15 @@
 require 'uglifier'
 require "jshintrb/jshinttask"
+require 'jasmine'
+require 'listen'
+
+load 'jasmine/tasks/jasmine.rake'
 
 SOURCE = 'time_ago.js'
 
 task default: :build
 
-task :build => [:minify]
+task :build => [:jshint, :'jasmine:ci', :minify]
 
 task :minify do
   puts 'Minifying...'
@@ -20,11 +24,9 @@ task :minify do
   puts 'Done.'
 end
 
-task :test do
-  `bundle exec rake jasmine:ci`
-end
-
 Jshintrb::JshintTask.new :jshint do |t|
+  puts 'Linting...'
+
   t.pattern = SOURCE
   t.options ={
     bitwise: true,
@@ -48,10 +50,22 @@ Jshintrb::JshintTask.new :jshint do |t|
     unused: true,
     maxparams: 4,
     maxdepth: 3,
-    # maxstatements: 5,
+    maxstatements: 10,
     maxlen: 80
   }
 end
 
-require 'jasmine'
-load 'jasmine/tasks/jasmine.rake'
+task :watch do
+  puts "|  Watching #{SOURCE_DIR} for changes."
+  puts '|  Hit `ctrl + c` to stop'
+  sh 'rake build'
+
+  listener = Listen.to SOURCE_DIR do
+    puts '|  Something changed...'
+    sh 'rake build'
+  end
+
+  listener.start
+  sleep
+end
+
