@@ -9,7 +9,7 @@ SOURCE = 'time_ago.js'
 
 task default: :build
 
-task :build => [:jshint, :'jasmine:ci', :minify]
+task :build => [:jshint, :'jasmine:ci', :minify, :doc]
 
 desc 'Minify js'
 task :minify do
@@ -27,6 +27,13 @@ end
 
 desc 'Run tests'
 task test: :'jasmine:ci'
+
+desc 'Run jsdocs'
+task :doc do
+  puts 'Docing...'
+  `jsdoc time_ago.js -p -d doc`
+  puts 'Done.'
+end
 
 Jshintrb::JshintTask.new :jshint do |t|
   t.pattern = SOURCE
