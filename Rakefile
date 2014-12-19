@@ -31,7 +31,7 @@ task test: :'jasmine:ci'
 desc 'Run jsdocs'
 task :doc do
   puts 'Docing...'
-  `jsdoc time_ago.js -p -d doc`
+  `jsdoc time_ago.js README.md -p -d doc`
   puts 'Done.'
 end
 
