@@ -11,6 +11,7 @@ task default: :build
 
 task :build => [:jshint, :'jasmine:ci', :minify]
 
+desc 'Minify js'
 task :minify do
   puts 'Minifying...'
 
@@ -24,9 +25,10 @@ task :minify do
   puts 'Done.'
 end
 
-Jshintrb::JshintTask.new :jshint do |t|
-  puts 'Linting...'
+desc 'Run tests'
+task test: :'jasmine:ci'
 
+Jshintrb::JshintTask.new :jshint do |t|
   t.pattern = SOURCE
   t.options ={
     bitwise: true,
