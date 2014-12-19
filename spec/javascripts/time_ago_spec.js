@@ -1,4 +1,13 @@
 describe('TimeAgo', function(){
+
+  // regression test for undefined ago bug
+  describe('undefined ago bug', function(){
+    it('should not say undefined ago', function(){
+      expect(timeElHTML(1000 * 60 * 2)).not.toMatch('undefined');
+      expect(timeElHTML(1000 * 60 * 2)).toBe('2 minutes ago');
+    });
+  });
+
   describe('#init', function(){
     it('requires els', function(){
       var bla = function(){
