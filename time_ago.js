@@ -1,4 +1,4 @@
-(function(){
+(function(window){
   'use strict';
 
   var UNITS = [
@@ -148,5 +148,5 @@
   };
 
   window.TimeAgo = TimeAgo;
-})();
+})(window);
 
