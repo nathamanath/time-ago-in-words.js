@@ -144,19 +144,18 @@
        * @returns {string}
        */
       _longOutput: function() {
-        var prefix = '',
+        var prefix = null,
             unitString,
             measure = this.measure,
             measureFloor = Math.floor(measure);
 
-        if(measureFloor !== measure) { prefix = 'about '; }
+        if(measureFloor !== measure) { prefix = 'about'; }
 
         unitString = this.unit.name;
 
         if(measure >= 2) { unitString += 's'; }
 
-        return prefix + this._measureString() +
-          ' ' + unitString + ' ago';
+        return [prefix, this._measureString(), unitString, 'ago'].join(' ');
       },
 
       /**
