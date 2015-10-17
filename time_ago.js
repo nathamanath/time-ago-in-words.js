@@ -22,7 +22,7 @@
         fn: function(ms) { return UNITS[1].fn(ms) / 60; } },
       { name: 'day', fn: function(ms) { return UNITS[2].fn(ms) / 24; } },
       { name: 'week', fn: function(ms) { return UNITS[3].fn(ms) / 7; } },
-      { name: 'month', fn: function(ms) { return UNITS[4].fn(ms) / 30; } },
+      { name: 'month', fn: function(ms) { return UNITS[4].fn(ms) / 4; } },
       { name: 'year', fn: function(ms) { return UNITS[5].fn(ms) / 12; } }
     ];
 
@@ -82,13 +82,14 @@
        * @private
        */
       _calculateMeasure: function() {
-        var lastMeasure,
-            lastUnit = UNITS[0];
+        var lastMeasure;
+        var lastUnit = UNITS[0];
 
-        for(var i = 0; i < UNITS.length; i++) {
-          var unit = UNITS[i],
-              measure;
+        var i = 0;
+        var unit;
+        var measure;
 
+        while(unit = UNITS[i]) {
           measure = unit.fn(this.difference);
 
           if(measure < 1) {
@@ -99,7 +100,13 @@
 
           lastUnit = unit;
           lastMeasure = measure;
+
+          i++;
         }
+
+        // if we get to last unit
+        this.measure = lastMeasure;
+        this.unit = lastUnit;
       },
 
       /**
@@ -141,19 +148,23 @@
       /**
        * Output when a long amount of time has passed. i.e. not seconds.
        * @private
-       * @returns {string}
+       * @returns {string} time ago in words
        */
       _longOutput: function() {
-        var prefix = null,
-            unitString,
-            measure = this.measure,
-            measureFloor = Math.floor(measure);
+        debugger
 
-        if(measureFloor !== measure) { prefix = 'about'; }
+        var prefix = null;
+        var measure = this.measure;
+        var measureFloor = Math.floor(measure);
+        var unitString = this.unit.name;
 
-        unitString = this.unit.name;
+        if(measureFloor !== measure) {
+          prefix = 'about';
+        }
 
-        if(measure >= 2) { unitString += 's'; }
+        if(measure >= 2) {
+          unitString += 's';
+        }
 
         var out = [this._measureString(), unitString, 'ago'];
 

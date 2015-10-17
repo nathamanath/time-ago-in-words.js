@@ -8,6 +8,18 @@ describe('TimeAgo', function(){
     });
   });
 
+  // Old dates say 'about a month ago', when they are much older than that
+  describe('"about a month ago" bug', function() {
+    it('says has correct words for old strings.', function() {
+
+      var el = document.createElement('time');
+      el.setAttribute('data-time', 1418504400000);
+      TimeAgo.new(el);
+
+      expect(el.innerHTML).not.toMatch('about a month ago');
+    });
+  });
+
   describe('#init', function(){
     it('requires els', function(){
       var bla = function(){
