@@ -4,9 +4,22 @@
  * @version 0.1.0
  */
 
-(function() {
+
+(function(window, Math) {
   'use strict';
-  (function(window) {
+
+  (function(window, factory) {
+    // Expose Ajax
+    var define = window.define || null;
+
+    if(typeof define === 'function' && define.amd){ // AMD
+      define('time_ago', [], function() {
+        return factory;
+      });
+    }else{
+      window.TimeAgo = factory;
+    }
+  })(window, (function(window, Math) {
 
     /**
      * Units of time required by TimeAgo
@@ -248,14 +261,7 @@
       return new TimeAgo(el);
     };
 
-    // expose TimeAgo
-    var define = window.define || null;
+    return TimeAgo;
 
-    if(typeof define === 'function' && define.amd) {
-      define('time_ago', [], function() { return TimeAgo; } ); // amd
-    } else {
-      window.TimeAgo = TimeAgo;
-    }
-  })(window);
-}).call(this);
-
+  })(window, Math));
+})(window, Math);

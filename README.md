@@ -29,3 +29,10 @@ This will set the innerHTML of each target element to a time ago in words string
   about 5 minutes ago
 ```
 
+## Development
+
+### TODO
+
+* give words in mixed units
+* > 1 and < 1.5 of something could be in previous unit e.g. 10 days, could be `10 days ago` not `about a week ago`
+* add in `almost` n units ago.
