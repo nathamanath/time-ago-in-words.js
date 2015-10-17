@@ -66,7 +66,7 @@
       /**
        * Parse el time to date instance. Handle string of date or UTC
        * @private
-       * @returns {object}
+       * @returns Date instance
        */
       _parseTime: function() {
         var time = this._getTime(),
@@ -155,7 +155,13 @@
 
         if(measure >= 2) { unitString += 's'; }
 
-        return [prefix, this._measureString(), unitString, 'ago'].join(' ');
+        var out = [this._measureString(), unitString, 'ago'];
+
+        if(prefix) {
+          out.unshift(prefix);
+        }
+
+        return out.join(' ');
       },
 
       /**
@@ -221,7 +227,7 @@
      * New Timeago instance
      *
      * @param {object} el - see TimeAgo
-     * @returs {object}
+     * @returs TimeAgo instance
      */
     TimeAgo.new = function(el) {
       if(typeof el === 'undefined') {
