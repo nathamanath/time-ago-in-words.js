@@ -164,7 +164,6 @@
        * @returns {string} time ago in words
        */
       _longOutput: function() {
-        debugger
 
         var prefix = null;
         var measure = this.measure;
